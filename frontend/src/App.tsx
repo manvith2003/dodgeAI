@@ -31,7 +31,8 @@ export interface ChatMessage {
   timestamp: Date
 }
 
-const API_BASE = '/api'
+// Support production API URL via Vite env variables, default to local proxy
+const API_BASE = import.meta.env.VITE_API_URL || '/api'
 
 function App() {
   const [graphData, setGraphData] = useState<GraphData | null>(null)

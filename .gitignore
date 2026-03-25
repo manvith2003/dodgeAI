@@ -12,8 +12,8 @@ frontend/dist/
 .env
 .env.local
 
-# Database (generated)
-backend/dodgeai.db
+# Database
+# Note: allowing dodgeai.db so standard platform-as-a-service deployments have the data
 
 # Raw data (downloaded separately)
 raw_data/
