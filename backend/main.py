@@ -12,21 +12,12 @@ from pydantic import BaseModel
 from graph import build_graph, get_full_graph, get_node_detail, expand_node, search_nodes
 from llm import chat, get_schema_info
 
-# Global graph instance
-_graph = None
+# Global graph instance initialized synchronously for Serverless environments
+print("Building graph for Serverless cold start...")
+_graph = build_graph()
+print("Graph ready!")
 
-
-@asynccontextmanager
-async def lifespan(app: FastAPI):
-    """Build graph on startup."""
-    global _graph
-    print("Building graph...")
-    _graph = build_graph()
-    print("Graph ready!")
-    yield
-
-
-app = FastAPI(title="DodgeAI API", version="1.0.0", lifespan=lifespan)
+app = FastAPI(title="DodgeAI API", version="1.0.0")
 
 # CORS - allow frontend to access
 app.add_middleware(
